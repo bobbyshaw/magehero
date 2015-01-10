@@ -13,8 +13,9 @@ class Controller_Account extends Controller_Abstract
     {
 
         // Return if already logged in
-        if ($this->_getUsername())
-            return;
+        if ($this->_getUsername()) {
+            return; 
+        }
 
         // This was a callback request from github, get the token
         if (!empty($_GET['code'])) {
@@ -30,8 +31,8 @@ class Controller_Account extends Controller_Abstract
             $this->_setUsername($result['login']);
             $this->_setSession('image_url', $result['avatar_url']);
 
-        // Forward on to github to login
         } else {
+            // Forward on to github to login
             $github = $this->_getGithubService($this->_getConfigData('base_url') . $_SERVER['REQUEST_URI']);
             $url = $github->getAuthorizationUri();
 

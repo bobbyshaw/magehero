@@ -3,7 +3,8 @@
 class Controller_UserUpvote extends Controller_Abstract
 {
     protected $notify;
-    function __construct() {
+    function __construct() 
+    {
         $this->notify = $this->_getContainer()->Notify();
     }
     public function get($userId)
@@ -11,10 +12,12 @@ class Controller_UserUpvote extends Controller_Abstract
         try {
             $this->_get($userId);
         } catch (Exception $e) {
-            return $this->_jsonResponse(array(
+            return $this->_jsonResponse(
+                array(
                 'success' => false,
                 'message' => $e->getMessage(),
-            ));
+                )
+            );
         }
 
         return $this;
@@ -49,9 +52,11 @@ class Controller_UserUpvote extends Controller_Abstract
 
         // Reload to get fresh vote count
         $electedUser = $this->_getContainer()->User()->load($userId);
-        $this->_jsonResponse(array(
+        $this->_jsonResponse(
+            array(
             'success' => true,
             'vote_count' => $electedUser->getVoteCount(),
-        ));
+            )
+        );
     }
 }

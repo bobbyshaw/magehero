@@ -76,7 +76,10 @@ abstract class Model_Record
     }
 
     // Can be overridden by children
-    protected function _afterSave() { }
+    protected function _afterSave() 
+    {
+ 
+    }
 
     public function update()
     {
@@ -110,7 +113,8 @@ abstract class Model_Record
         return $this;
     }
 
-    public function getId() {
+    public function getId() 
+    {
         return $this->get($this->_getTableIdFieldname());
     }
 

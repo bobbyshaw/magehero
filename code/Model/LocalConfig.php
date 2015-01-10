@@ -39,20 +39,59 @@ class Model_LocalConfig
         return $this->_databaseAdapter;
     }
 
-    public function getGoogleAnalyticsUa() { return $this->get('google_analytics_ua'); }
-    public function getRankMehMinimumVotecount() { return $this->get('rank_meh_minimum_votecount'); }
-    public function getRankStarMinimumVotecount() { return $this->get('rank_star_minimum_votecount'); }
-    public function getRankRocketMinimumVotecount() { return $this->get('rank_rocket_minimum_votecount'); }
-    public function getPostingMinimumVotecount() { return $this->get('posting_minimum_votecount'); }
+    public function getGoogleAnalyticsUa() 
+    {
+        return $this->get('google_analytics_ua'); 
+    }
+    public function getRankMehMinimumVotecount() 
+    {
+        return $this->get('rank_meh_minimum_votecount'); 
+    }
+    public function getRankStarMinimumVotecount() 
+    {
+        return $this->get('rank_star_minimum_votecount'); 
+    }
+    public function getRankRocketMinimumVotecount() 
+    {
+        return $this->get('rank_rocket_minimum_votecount'); 
+    }
+    public function getPostingMinimumVotecount() 
+    {
+        return $this->get('posting_minimum_votecount'); 
+    }
 
-    public function getHellobarEnabled() { return $this->get('hellobar_enabled'); }
-    public function getHellobarMessage() { return $this->get('hellobar_message'); }
-    public function getHellobarUrl() { return $this->get('hellobar_url'); }
-    public function getDisqusShortname() { return $this->get('disqus_shortname'); }
+    public function getHellobarEnabled() 
+    {
+        return $this->get('hellobar_enabled'); 
+    }
+    public function getHellobarMessage() 
+    {
+        return $this->get('hellobar_message'); 
+    }
+    public function getHellobarUrl() 
+    {
+        return $this->get('hellobar_url'); 
+    }
+    public function getDisqusShortname() 
+    {
+        return $this->get('disqus_shortname'); 
+    }
 
-    public function getBaseUrl() { return $this->get('base_url'); }
+    public function getBaseUrl() 
+    {
+        return $this->get('base_url'); 
+    }
 
-    public function getHideExceptions() { return $this->get('hide_exceptions'); }
-    public function getRecentTimePeriod() { return $this->get('recent_time_period'); }
-    public function getNumberOfHoursForNew() { return $this->get('number_of_hours_for_new'); }
+    public function getHideExceptions() 
+    {
+        return $this->get('hide_exceptions'); 
+    }
+    public function getRecentTimePeriod() 
+    {
+        return $this->get('recent_time_period'); 
+    }
+    public function getNumberOfHoursForNew() 
+    {
+        return $this->get('number_of_hours_for_new'); 
+    }
 }

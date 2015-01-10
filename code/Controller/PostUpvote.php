@@ -7,10 +7,12 @@ class Controller_PostUpvote extends Controller_Abstract
         try {
             $this->_get($postId);
         } catch (Exception $e) {
-            return $this->_jsonResponse(array(
+            return $this->_jsonResponse(
+                array(
                 'success' => false,
                 'message' => $e->getMessage(),
-            ));
+                )
+            );
         }
 
         return $this;
@@ -38,9 +40,11 @@ class Controller_PostUpvote extends Controller_Abstract
         // Reload to get fresh vote count
         $post = $this->_getContainer()->Post()->load($postId);
 
-        $this->_jsonResponse(array(
+        $this->_jsonResponse(
+            array(
             'success' => true,
             'vote_count' => $post->voteCount(),
-        ));
+            )
+        );
     }
 }

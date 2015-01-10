@@ -4,8 +4,14 @@ class Model_PostTag extends Model_Record
 {
     protected $_user;
 
-    protected function _getTable() { return 'post_tag'; }
-    protected function _getTableIdFieldname() { return 'post_tag_id'; }
+    protected function _getTable() 
+    {
+        return 'post_tag'; 
+    }
+    protected function _getTableIdFieldname() 
+    {
+        return 'post_tag_id'; 
+    }
     protected function _getColumns()
     {
         return array('user_id', 'post_id', 'tag_id');

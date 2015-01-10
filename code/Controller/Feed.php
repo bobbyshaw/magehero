@@ -10,7 +10,8 @@ class Controller_Feed extends Controller_Abstract
         $latestPost = current($posts);
         $updated = $latestPost ? $latestPost->getCreatedAt() : \Carbon\Carbon::now()->toDateTimeString();
 
-        echo $this->_getTwig()->render('feed.xml.twig', array(
+        echo $this->_getTwig()->render(
+            'feed.xml.twig', array(
             'session'       => $this->_getSession(),
             'posts'         => $posts,
             'local_config'  => $this->_getContainer()->LocalConfig(),
@@ -19,7 +20,8 @@ class Controller_Feed extends Controller_Abstract
                 'updated'       => $updated,
                 'description'   => '',
             ),
-        ));
+            )
+        );
     }
 
     protected function _getPosts()

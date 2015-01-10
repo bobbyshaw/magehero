@@ -4,8 +4,14 @@ class Model_Tag extends Model_Record
 {
     protected $_user;
 
-    protected function _getTable() { return 'tags'; }
-    protected function _getTableIdFieldname() { return 'tag_id'; }
+    protected function _getTable() 
+    {
+        return 'tags'; 
+    }
+    protected function _getTableIdFieldname() 
+    {
+        return 'tag_id'; 
+    }
     protected function _getColumns()
     {
         return array('tag_text');
@@ -21,7 +27,10 @@ class Model_Tag extends Model_Record
         $this->_localConfig = $config;
     }
 
-    public function getTagText()    { return $this->get('tag_text'); }
+    public function getTagText()    
+    {
+        return $this->get('tag_text'); 
+    }
 
 
     public function fetchByPostId($postId)

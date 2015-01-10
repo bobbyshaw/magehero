@@ -5,8 +5,14 @@ class Model_User extends Model_Record
     protected $_data;
     protected $_lastPost;
 
-    protected function _getTable() { return 'users'; }
-    protected function _getTableIdFieldname() { return 'user_id'; }
+    protected function _getTable() 
+    {
+        return 'users'; 
+    }
+    protected function _getTableIdFieldname() 
+    {
+        return 'user_id'; 
+    }
     protected function _getColumns()
     {
         return array('is_active', 'username', 'name', 'details_json');
@@ -70,11 +76,13 @@ class Model_User extends Model_Record
 
     public function addVoteFrom($votingUserId)
     {
-        $this->_localConfig->database()->insert('user_vote', array(
+        $this->_localConfig->database()->insert(
+            'user_vote', array(
             'voting_user_id'    => $votingUserId,
             'elected_user_id'   => $this->getId(),
             'created_at'        => \Carbon\Carbon::now()->toDateTimeString(),
-        ));
+            )
+        );
 
         $data = array(
             'updated_at'    => \Carbon\Carbon::now()->toDateTimeString(),
@@ -86,7 +94,8 @@ class Model_User extends Model_Record
 
     public function removeVoteFrom($votingUserId)
     {
-        $this->_localConfig->database()->delete('user_vote',
+        $this->_localConfig->database()->delete(
+            'user_vote',
             "voting_user_id = $votingUserId AND elected_user_id = " . $this->getId()
         );
 
@@ -95,7 +104,8 @@ class Model_User extends Model_Record
 
     public function removeVoteFromPost($postId)
     {
-        $this->_localConfig->database()->delete('post_vote',
+        $this->_localConfig->database()->delete(
+            'post_vote',
             "voting_user_id = " . $this->getId() . " AND post_id = " . $postId
         );
 
@@ -104,11 +114,13 @@ class Model_User extends Model_Record
 
     public function addVoteToPost($postId)
     {
-        $this->_localConfig->database()->insert('post_vote', array(
+        $this->_localConfig->database()->insert(
+            'post_vote', array(
             'voting_user_id'    => $this->getId(),
             'post_id'           => $postId,
             'created_at'        => \Carbon\Carbon::now()->toDateTimeString(),
-        ));
+            )
+        );
 
         return $this;
     }
@@ -142,11 +154,13 @@ class Model_User extends Model_Record
     public function selectAll()
     {
         $postsQuery = $this->_localConfig->database()->select()
-            ->from('posts', array(
+            ->from(
+                'posts', array(
                 'user_id',
                 'is_active',
                 'MAX(posts.post_id) AS post_id'
-            ))
+                )
+            )
             ->where('posts.is_active = 1')
             ->order('posts.post_id DESC')
             ->group('posts.user_id');
@@ -179,43 +193,112 @@ class Model_User extends Model_Record
         return $query;
     }
 
-    public function getName() { return $this->get('name'); }
-    public function getCreatedAt() { return $this->get('created_at'); }
-    public function getUpdatedAt() { return $this->get('updated_at'); }
-    public function getEmail() { return $this->getDetail('email'); }
-    public function getVoteCount() { return $this->get('vote_count'); }
-    public function getUsername() { return $this->get('username'); }
-    public function getVotingUsernames() { return $this->get('voting_users'); }
+    public function getName() 
+    {
+        return $this->get('name'); 
+    }
+    public function getCreatedAt() 
+    {
+        return $this->get('created_at'); 
+    }
+    public function getUpdatedAt() 
+    {
+        return $this->get('updated_at'); 
+    }
+    public function getEmail() 
+    {
+        return $this->getDetail('email'); 
+    }
+    public function getVoteCount() 
+    {
+        return $this->get('vote_count'); 
+    }
+    public function getUsername() 
+    {
+        return $this->get('username'); 
+    }
+    public function getVotingUsernames() 
+    {
+        return $this->get('voting_users'); 
+    }
 
-    public function getImageUrl() { return $this->getDetail('image_url'); }
-    public function getNextAvailable() { return $this->getDetail('next_available'); }
-    public function certificationBoardUrl() { return $this->getDetail('certification_board_url'); }
-    public function getCertifiedDeveloperUrl() { return $this->getDetail('certified_developer_url'); }
-    public function certifiedDeveloperPlusUrl() { return $this->getDetail('certified_developer_plus_url'); }
-    public function certifiedSolutionSpecialistUrl() { return $this->getDetail('certified_solution_specialist_url'); }
-    public function certifiedFrontendDeveloperUrl() { return $this->getDetail('certified_frontend_developer_url'); }
-    public function stackoverflowUrl() { return $this->getDetail('stackoverflow_url'); }
-    public function linkedinUrl() { return $this->getDetail('linkedin_url'); }
-    public function getGithubUsername() { return (string) $this->getDetail('github_username'); }
-    public function getTwitterUsername() { return $this->getDetail('twitter_username'); }
-    public function getWebsiteUrl() { return $this->getDetail('url_website'); }
-    public function getCompany() { return $this->getDetail('company'); }
-    public function getAboutYou() { return $this->getDetail('about_you'); }
-    public function getLatitude() { return (float)$this->getDetail('latitude'); }
-    public function getLongitude() { return (float)$this->getDetail('longitude'); }
+    public function getImageUrl() 
+    {
+        return $this->getDetail('image_url'); 
+    }
+    public function getNextAvailable() 
+    {
+        return $this->getDetail('next_available'); 
+    }
+    public function certificationBoardUrl() 
+    {
+        return $this->getDetail('certification_board_url'); 
+    }
+    public function getCertifiedDeveloperUrl() 
+    {
+        return $this->getDetail('certified_developer_url'); 
+    }
+    public function certifiedDeveloperPlusUrl() 
+    {
+        return $this->getDetail('certified_developer_plus_url'); 
+    }
+    public function certifiedSolutionSpecialistUrl() 
+    {
+        return $this->getDetail('certified_solution_specialist_url'); 
+    }
+    public function certifiedFrontendDeveloperUrl() 
+    {
+        return $this->getDetail('certified_frontend_developer_url'); 
+    }
+    public function stackoverflowUrl() 
+    {
+        return $this->getDetail('stackoverflow_url'); 
+    }
+    public function linkedinUrl() 
+    {
+        return $this->getDetail('linkedin_url'); 
+    }
+    public function getGithubUsername() 
+    {
+        return (string) $this->getDetail('github_username'); 
+    }
+    public function getTwitterUsername() 
+    {
+        return $this->getDetail('twitter_username'); 
+    }
+    public function getWebsiteUrl() 
+    {
+        return $this->getDetail('url_website'); 
+    }
+    public function getCompany() 
+    {
+        return $this->getDetail('company'); 
+    }
+    public function getAboutYou() 
+    {
+        return $this->getDetail('about_you'); 
+    }
+    public function getLatitude() 
+    {
+        return (float)$this->getDetail('latitude'); 
+    }
+    public function getLongitude() 
+    {
+        return (float)$this->getDetail('longitude'); 
+    }
 
     public function getNextAvailableFriendly()
     {
-       try {
+        try {
             $dt = \Carbon\Carbon::parse($this->getDetail('next_available'));
-            if ($dt->lt(\Carbon\Carbon::now())){
+            if ($dt->lt(\Carbon\Carbon::now())) {
                 return "Available";
             }else{
                 return $dt->diffForHumans();
             }
-       } catch (Exception $e) {
-           return $this->getDetail('next_available');
-       }
+        } catch (Exception $e) {
+            return $this->getDetail('next_available');
+        }
     }
 
     public function getDetail($key)
@@ -264,9 +347,11 @@ class Model_User extends Model_Record
     public function fetchPostCount()
     {
         $query = $this->_localConfig->database()->select()
-            ->from('posts', array(
+            ->from(
+                'posts', array(
                 'post_count' => 'COUNT(*)'
-            ))
+                )
+            )
             ->where('posts.is_active = 1')
             ->where('user_id = ?', $this->getId());
 
@@ -296,7 +381,8 @@ class Model_User extends Model_Record
         return $postModel;
     }
 
-    public function getUrl() {
+    public function getUrl() 
+    {
         $url = implode("/", array($this->_localConfig->get('base_url'), $this->getGithubUsername(), 'posts'));
         return $url;
     }

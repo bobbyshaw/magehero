@@ -14,12 +14,14 @@ class Controller_Tag extends Controller_Abstract
 
         $posts = $this->_getContainer()->Post()->fetchByTagId($tagId);
 
-        echo $this->_getTwig()->render('tag.html.twig', array(
+        echo $this->_getTwig()->render(
+            'tag.html.twig', array(
             'session'       => $this->_getSession(),
             'tag'           => $tag,
             'posts'         => $posts,
             'local_config'  => $this->_getContainer()->LocalConfig(),
-        ));
+            )
+        );
     }
 
 }

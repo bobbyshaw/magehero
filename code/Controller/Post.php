@@ -11,10 +11,12 @@ class Controller_Post extends Controller_Abstract
             header("Location: " . $post->getUrl(), true, 301);
         }
 
-        echo $this->_getTwig()->render('post.html.twig', array(
+        echo $this->_getTwig()->render(
+            'post.html.twig', array(
             'session'       => $this->_getSession(),
             'post'          => $post,
             'local_config'  => $this->_getContainer()->LocalConfig(),
-        ));
+            )
+        );
     }
 }

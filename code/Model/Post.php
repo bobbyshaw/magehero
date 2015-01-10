@@ -5,8 +5,14 @@ class Model_Post extends Model_Record
     protected $_data;
     protected $_user;
 
-    protected function _getTable() { return 'posts'; }
-    protected function _getTableIdFieldname() { return 'post_id'; }
+    protected function _getTable() 
+    {
+        return 'posts'; 
+    }
+    protected function _getTableIdFieldname() 
+    {
+        return 'post_id'; 
+    }
     protected function _getColumns()
     {
         return array('user_id', 'is_active', 'image_url', 'subject', 'body');
@@ -22,8 +28,14 @@ class Model_Post extends Model_Record
         $this->_localConfig = $config;
     }
 
-    public function getSubject() { return $this->get('subject'); }
-    public function getBody()    { return $this->get('body'); }
+    public function getSubject() 
+    {
+        return $this->get('subject'); 
+    }
+    public function getBody()    
+    {
+        return $this->get('body'); 
+    }
 
     public function getBodyAsHtml()
     {
@@ -35,13 +47,34 @@ class Model_Post extends Model_Record
         return $body;
     }
 
-    public function getUserId()      { return $this->get('user_id'); }
-    public function getImageUrl()    { return $this->get('image_url'); }
-    public function getIsActive()    { return $this->get('is_active'); }
-    public function getCreatedAt()   { return $this->get('created_at'); }
-    public function getUpdatedAt()   { return $this->get('updated_at'); }
-    public function voteCount()      { return $this->get('vote_count'); }
-    public function getUpvotersCsv() { return $this->get('upvoters_csv'); }
+    public function getUserId()      
+    {
+        return $this->get('user_id'); 
+    }
+    public function getImageUrl()    
+    {
+        return $this->get('image_url'); 
+    }
+    public function getIsActive()    
+    {
+        return $this->get('is_active'); 
+    }
+    public function getCreatedAt()   
+    {
+        return $this->get('created_at'); 
+    }
+    public function getUpdatedAt()   
+    {
+        return $this->get('updated_at'); 
+    }
+    public function voteCount()      
+    {
+        return $this->get('vote_count'); 
+    }
+    public function getUpvotersCsv() 
+    {
+        return $this->get('upvoters_csv'); 
+    }
 
     /**
      * @return \Carbon\Carbon
@@ -92,14 +125,16 @@ class Model_Post extends Model_Record
 
         $query = $this->_localConfig->database()->select()
             ->from($table)
-            ->joinLeft(array('post_vote' => 'post_vote'),
+            ->joinLeft(
+                array('post_vote' => 'post_vote'),
                 "post_vote.post_id = $table.post_id",
                 array(
                     'vote_count' => 'COUNT(DISTINCT post_vote_id)',
                     'upvoters_csv' => 'GROUP_CONCAT(DISTINCT voting_user.username)'
                 )
             )
-            ->joinLeft(array('voting_user' => 'users'),
+            ->joinLeft(
+                array('voting_user' => 'users'),
                 'voting_user.user_id = post_vote.voting_user_id',
                 array()
             )
@@ -116,13 +151,15 @@ class Model_Post extends Model_Record
 
         $query = $this->_localConfig->database()->select()
             ->from($table)
-            ->joinLeft(array('post_vote' => 'post_vote'),
+            ->joinLeft(
+                array('post_vote' => 'post_vote'),
                 "post_vote.post_id = $table.post_id",
                 array(
                     'vote_count' => 'COUNT(DISTINCT post_vote_id)',
                 )
             )
-            ->joinLeft(array('voting_user' => 'users'),
+            ->joinLeft(
+                array('voting_user' => 'users'),
                 'voting_user.user_id = post_vote.voting_user_id',
                 array(
                     'upvoters_csv' => 'GROUP_CONCAT(DISTINCT voting_user.username)'
@@ -206,6 +243,7 @@ class Model_Post extends Model_Record
      * from posts
      * having hits > 0
      * order by hits desc;
+     *
      * @param $term
      *
      * @return array
@@ -227,7 +265,7 @@ class Model_Post extends Model_Record
         $query->having('hits > 0');
 
         // We need to reset the ordering that was put on in selectAll()
-        $query->reset( Zend_Db_Select::ORDER );
+        $query->reset(Zend_Db_Select::ORDER);
         $query->order("hits DESC");
 
         $rows = $this->_localConfig->database()->fetchAll($query);
@@ -295,7 +333,9 @@ class Model_Post extends Model_Record
     {
         $tags = $this->fetchTags();
 
-        /** @var $tag Model_Tag */
+        /**
+ * @var $tag Model_Tag 
+*/
         foreach ($tags as $tag) {
             if ($tag->getId() == $tagId) {
                 return true;
@@ -336,11 +376,13 @@ class Model_Post extends Model_Record
         if ($this->get('tag_ids') && is_array($this->get('tag_ids'))) {
             $this->_localConfig->database()->delete("post_tag", "post_id = " . $this->getId());
             foreach ($this->get('tag_ids') as $tagId) {
-                $tagPostRelationship = $this->_getContainer()->PostTag()->setData(array(
+                $tagPostRelationship = $this->_getContainer()->PostTag()->setData(
+                    array(
                     'post_id' => $this->getId(),
                     'user_id' => $this->getUserId(),
                     'tag_id' => $tagId
-                ));
+                    )
+                );
                 $tagPostRelationship->save();
             }
 

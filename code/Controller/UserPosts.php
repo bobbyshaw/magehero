@@ -7,10 +7,12 @@ class Controller_UserPosts extends Controller_Abstract
         try {
             $this->_get($username);
         } catch (Exception $e) {
-            return $this->_jsonResponse(array(
+            return $this->_jsonResponse(
+                array(
                 'success' => false,
                 'message' => $e->getMessage(),
-            ));
+                )
+            );
         }
 
         return $this;
@@ -23,12 +25,14 @@ class Controller_UserPosts extends Controller_Abstract
             die("Not found");
         }
 
-        echo $this->_getTwig()->render('user.html.twig', array(
+        echo $this->_getTwig()->render(
+            'user.html.twig', array(
             'user'          => $user,
             'posts'         => $this->_fetchPosts($user),
             'session'       => $this->_getSession(),
             'local_config'  => $this->_getContainer()->LocalConfig(),
-        ));
+            )
+        );
     }
 
     /**

@@ -23,12 +23,14 @@ class Controller_PostEdit extends Controller_Account
             die("Permission denied");
         }
 
-        echo $this->_getTwig()->render('post_edit.html.twig', array(
+        echo $this->_getTwig()->render(
+            'post_edit.html.twig', array(
             'session'       => $this->_getSession(),
             'post'          => $post,
             'local_config'  => $this->_getContainer()->LocalConfig(),
             'tags'          => $tags,
-        ));
+            )
+        );
     }
 
     public function post($postId)

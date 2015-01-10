@@ -1,5 +1,6 @@
 <?php
-class Services_TwitterNotify implements Services_NotifyInterface {
+class Services_TwitterNotify implements Services_NotifyInterface
+{
     /**
      * @var Model_LocalConfig
      */
@@ -13,10 +14,11 @@ class Services_TwitterNotify implements Services_NotifyInterface {
     /**
      * @param Model_User $to
      * @param Model_User $from
-     * @param string $message
+     * @param string     $message
      * @return bool|string
      */
-    public function send($to, $from = "", $message = "") {
+    public function send($to, $from = "", $message = "") 
+    {
 
         if ($message == "") {
             // Construct Tweet
@@ -33,14 +35,14 @@ class Services_TwitterNotify implements Services_NotifyInterface {
         $requestMethod = 'POST';
         $postfields = array("status" => $message);
         try{
-        $twitter = new TwitterAPIExchange($settings);
-        $response = $twitter
-            ->buildOauth($url, $requestMethod)
-            ->setPostfields($postfields)
-            ->performRequest();
-        // Error handling for tweet failurs , is not required. I am pretty sure that the voters are not interested
-        // in knowing if the tweet was posted or now. 
-        return $response;
+            $twitter = new TwitterAPIExchange($settings);
+            $response = $twitter
+                ->buildOauth($url, $requestMethod)
+                ->setPostfields($postfields)
+                ->performRequest();
+            // Error handling for tweet failurs , is not required. I am pretty sure that the voters are not interested
+            // in knowing if the tweet was posted or now. 
+            return $response;
         }catch(Exception $e) {
             return false;
         }

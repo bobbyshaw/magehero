@@ -7,10 +7,12 @@ class Controller_UserProfile extends Controller_Abstract
         try {
             $this->_get($username);
         } catch (Exception $e) {
-            return $this->_jsonResponse(array(
+            return $this->_jsonResponse(
+                array(
                 'success' => false,
                 'message' => $e->getMessage(),
-            ));
+                )
+            );
         }
 
         return $this;
@@ -25,12 +27,14 @@ class Controller_UserProfile extends Controller_Abstract
 
         $developers = $this->_getDevelopers($user);
 
-        echo $this->_getTwig()->render('user_list.html.twig', array(
+        echo $this->_getTwig()->render(
+            'user_list.html.twig', array(
             'user'          => $user,
             'developers'    => $developers,
             'session'       => $this->_getSession(),
             'local_config'  => $this->_getContainer()->LocalConfig(),
-        ));
+            )
+        );
     }
 
     /**
