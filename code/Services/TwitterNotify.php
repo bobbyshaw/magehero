@@ -1,35 +1,39 @@
 <?php
+/**
+ * Class Services_TwitterNotify
+ */
 class Services_TwitterNotify implements Services_NotifyInterface
 {
     /**
      * @var Model_LocalConfig
      */
-    protected $_localConfig;
+    protected $localConfig;
 
     public function __construct(Model_LocalConfig $config)
     {
-        $this->_localConfig = $config;
+        $this->localConfig = $config;
     }
 
     /**
      * @param Model_User $to
      * @param Model_User $from
      * @param string     $message
+     *
      * @return bool|string
      */
-    public function send($to, $from = "", $message = "") 
+    public function send($to, $from, $message = "")
     {
-
         if ($message == "") {
             // Construct Tweet
-            $message = "@".$to->getTwitterUsername()." you were upvoted by @".$from->getTwitterUsername(). " on magehero.com/" . $to->getGithubUsername();
+            $message = "@" . $to->getTwitterUsername() . " you were upvoted by @" . $from->getTwitterUsername() .
+                       " on magehero.com/" . $to->getGithubUsername();
         }
 
         $settings = array(
-            'oauth_access_token' => $this->_localConfig->get('twitter_oauth_access_token'),
-            'oauth_access_token_secret' => $this->_localConfig->get('twitter_oauth_access_token_secret'),
-            'consumer_key' => $this->_localConfig->get('twitter_consumer_api_key'),
-            'consumer_secret' => $this->_localConfig->get('twitter_consumer_api_secret')
+            'oauth_access_token' => $this->localConfig->get('twitter_oauth_access_token'),
+            'oauth_access_token_secret' => $this->localConfig->get('twitter_oauth_access_token_secret'),
+            'consumer_key' => $this->localConfig->get('twitter_consumer_api_key'),
+            'consumer_secret' => $this->localConfig->get('twitter_consumer_api_secret')
         );
         $url = 'https://api.twitter.com/1.1/statuses/update.json';
         $requestMethod = 'POST';

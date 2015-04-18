@@ -8,6 +8,5 @@ interface Services_NotifyInterface
      * @param  String $message 
      * @return boolean 
      */
-
     public function send($to, $from, $message);
 }
