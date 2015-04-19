@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <!-- If you delete this meta tag, the ground will open and swallow you. -->
+    <meta name="viewport" content="width=device-width" />
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>{% block title %}MageHero{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/skin/css/email.css?v=1"/>
+</head>
+
+<body bgcolor="#FFFFFF" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0">
+
+    <!-- HEADER -->
+    <table class="head-wrap" bgcolor="#999999">
+        <tr>
+            <td></td>
+            <td class="header container" align="">
+
+                <!-- /content -->
+                <div class="content">
+                    <table bgcolor="#999999" >
+                        <tr>
+                            <td>MageHero</td>
+                            <td align="right"><h6 class="collapse">{% block subtitle %}Newsletter{% endblock %}</h6></td>
+                        </tr>
+                    </table>
+                </div><!-- /content -->
+
+            </td>
+            <td></td>
+        </tr>
+    </table><!-- /HEADER -->
+
+    {% block content %}{% endblock %}
+
+    <!-- FOOTER -->
+    <table class="footer-wrap">
+        <tr>
+            <td></td>
+            <td class="container">
+
+                <!-- content -->
+                <div class="content">
+                    <table>
+                        <tr>
+                            <td align="center">
+                                <p>
+                                    <a href="">Unsubscribe by updating account preferences.</a>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div><!-- /content -->
+
+            </td>
+            <td></td>
+        </tr>
+    </table><!-- /FOOTER -->
+
+</body>
+</html>

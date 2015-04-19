@@ -9,5 +9,6 @@ use Symfony\Component\Console\Application;
 
 $app = new Application();
 $app->add(new Commands_SitemapCommand());
+$app->add(new Commands_EmailUpdatesCommand());
 $app->run();
 ?>

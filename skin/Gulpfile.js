@@ -16,6 +16,12 @@ gulp.task('styles', function () {
         .pipe(plugins.sass())
         .pipe(plugins.minifyCss({keepBreaks:true}))
         .pipe(gulp.dest('css'));
+
+    gulp.src('sass/email.scss')
+        .pipe(plugins.plumber())
+        .pipe(plugins.sass())
+        .pipe(plugins.minifyCss({keepBreaks:true}))
+        .pipe(gulp.dest('css'));
 });
 
 // Task scripts

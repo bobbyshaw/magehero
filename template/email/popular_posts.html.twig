@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<!-- BODY -->
+<table class="body-wrap" bgcolor="">
+    <tr>
+        <td></td>
+        <td class="container" align="" bgcolor="#FFFFFF">
+            {% for post in posts %}
+            <!-- content -->
+            <div class="content">
+                <table bgcolor="">
+                    <tr>
+                        <td class="small" width="20%" style="vertical-align: top; padding-right:10px;">
+                            <a href="{{ post.getUser().getUrl() }}">
+                                <img src="{{ post.getUser().imageUrl() }}" >
+                            </a>
+                        </td>
+                        <td>
+                            <span class="post-vote-count-wrapper {{ post.voteCount() ? "tooltip" : "" }}" title="Upvoted by {{ post.getUpvotersCsv() }}">
+                                <span class="post-vote-count">{{ post.voteCount() }}</span>
+                            </span>
+                            <h4><a href="{{ post.getUrl() }}">{{ post.getSubject() }}</a></h4>
+                        </td>
+                    </tr>
+                </table>
+
+            </div><!-- /content -->
+            {% endfor %}
+        </td>
+        <td></td>
+    </tr>
+</table><!-- /BODY -->
+{% endblock %}
+

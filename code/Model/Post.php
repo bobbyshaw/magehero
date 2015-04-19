@@ -164,15 +164,8 @@ class Model_Post extends Model_Record
                 "users.user_id = $table.user_id",
                 array('name')
             );
-        $rows = $this->_localConfig->database()->fetchAll($query);
 
-        $models = array();
-        foreach ($rows as $row) {
-            $model = $this->_getContainer()->Post()->setData($row);
-            $models[] = $model;
-        }
-
-        return $models;
+        return $this->_selectToModelArray($query);
     }
 
     public function fetchByUserId($userId)
@@ -182,15 +175,8 @@ class Model_Post extends Model_Record
         $query = $this->selectAll();
         $query->where("$table.user_id = ?", $userId);
         $query->where("$table.is_active = 1", $userId);
-        $rows = $this->_localConfig->database()->fetchAll($query);
 
-        $models = array();
-        foreach ($rows as $row) {
-            $model = $this->_getContainer()->Post()->setData($row);
-            $models[] = $model;
-        }
-
-        return $models;
+        return $this->_selectToModelArray($query);
     }
 
     /**
@@ -231,15 +217,7 @@ class Model_Post extends Model_Record
         $query->reset( Zend_Db_Select::ORDER );
         $query->order("hits DESC");
 
-        $rows = $this->_localConfig->database()->fetchAll($query);
-
-        $models = array();
-        foreach ($rows as $row) {
-            $model = $this->_getContainer()->Post()->setData($row);
-            $models[] = $model;
-        }
-
-        return $models;
+        return $this->_selectToModelArray($query);
     }
 
     public function fetchByTagId($tagId)
@@ -259,16 +237,40 @@ class Model_Post extends Model_Record
             )
             ->where("post_tag.tag_id = $tagId");
 
-        $rows = $this->_localConfig->database()->fetchAll($query);
+        return $this->_selectToModelArray($query);
+    }
 
-        $models = array();
-        foreach ($rows as $row) {
-            $model = $this->_getContainer()->Post()->setData($row);
-            $models[] = $model;
+    public function fetchByWeek($fromWeek, $toWeek = null)
+    {
+        $select = $this->_getContainer()->Post()->selectAll()
+            ->reset('order')
+            ->order(new Zend_Db_Expr("COUNT(DISTINCT post_vote_id) + (IF(posts.created_at > DATE_SUB(NOW(), INTERVAL 1 DAY), 5, 0)) DESC"))
+            ->where('posts.is_active = 1')
+            ->where("posts.created_at > DATE_SUB(NOW(), INTERVAL $fromWeek WEEK)");
+
+        if ($toWeek) {
+            $select->where("posts.created_at < DATE_SUB(NOW(), INTERVAL $toWeek WEEK)");
         }
 
-        return $models;
+        return $this->_selectToModelArray($select);
     }
+
+    /**
+     * @param $select Zend_Db_Select
+     */
+    protected function _selectToModelArray($select)
+    {
+        $postRows = $this->_localConfig->database()->fetchAll($select);
+        $postModels = array();
+
+        foreach ($postRows as $postRow) {
+            $postModel = $this->_getContainer()->Post()->setData($postRow);
+            $postModels[] = $postModel;
+        }
+
+        return $postModels;
+    }
+
 
     public function getUrl()
     {
